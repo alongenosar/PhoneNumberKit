@@ -7,10 +7,11 @@ let package = Package(
         .iOS(.v9), .macOS(.v10_10), .tvOS(.v9), .watchOS(.v2)
     ],
     products: [
-        .library(name: "PhoneNumberKit", targets: ["ok","PhoneNumberKit"]),
+        .library(name: "PhoneNumberKit", targets: ["PhoneNumberKit"]),
+        .library(name: "PhoneNumberKit-watchOS", targets: ["PhoneNumberKit-watchOS"]),
     ],
     targets: [
-        .target(name: "ok",
+        .target(name: "PhoneNumberKit-watchOS",
                 path: "PhoneNumberKit-watchOS",
                 exclude: [
                           "Resources/Original",

@@ -7,11 +7,22 @@ let package = Package(
         .iOS(.v9), .macOS(.v10_10), .tvOS(.v9), .watchOS(.v2)
     ],
     products: [
-        .library(name: "PhoneNumberKit", targets: ["PhoneNumberKit"]),
-        .library(name: "PhoneNumberKit-Static", type: .static, targets: ["PhoneNumberKit"]),
-        .library(name: "PhoneNumberKit-Dynamic", type: .dynamic, targets: ["PhoneNumberKit"])
+        .library(name: "PhoneNumberKit", targets: ["PhoneNumberKit","PhoneNumberKit-watchOS"]),
+        .library(name: "PhoneNumberKit-Static", type: .static, targets: ["PhoneNumberKit","PhoneNumberKit-watchOS"]),
+        .library(name: "PhoneNumberKit-Dynamic", type: .dynamic, targets: ["PhoneNumberKit", "PhoneNumberKit-watchOS"])
     ],
     targets: [
+        .target(name: "PhoneNumberKit-watchOS",
+                path: "PhoneNumberKit-watchOS",
+                exclude: [
+                          "Resources/Original",
+                          "Resources/README.md",
+                          "Resources/update.sh",
+                          "Info.plist",
+                          "Bundle+Resources.swift"],
+                resources: [
+                    .process("Resources/PhoneNumberMetadata.json")
+                ]),
         .target(name: "PhoneNumberKit",
                 path: "PhoneNumberKit",
                 exclude: [
@@ -22,11 +33,8 @@ let package = Package(
                           "Bundle+Resources.swift"],
                 resources: [
                     .process("Resources/PhoneNumberMetadata.json")
-                ]),
+                ])
 
-        .testTarget(name: "PhoneNumberKitTests",
-                    dependencies: ["PhoneNumberKit"],
-                    path: "PhoneNumberKitTests",
-                    exclude: ["Info.plist"])
+
     ]
 )
